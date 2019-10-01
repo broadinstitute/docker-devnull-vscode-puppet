@@ -1,0 +1,19 @@
+{
+	"name": "Puppet 6",
+	"image": "broadinstitute/devnull-vscode-puppet",
+	"settings": {
+		"files.associations": {
+			"*.eyaml": "yaml",
+			"Puppetfile": "ruby"
+		},
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"extensions": [
+		"jpogran.puppet-vscode",
+		"craigmaslowski.erb",
+		"davidanson.vscode-markdownlint"
+	],
+	"runArgs": [
+		"--rm"
+	]
+}
