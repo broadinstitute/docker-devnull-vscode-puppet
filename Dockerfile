@@ -14,12 +14,12 @@ ARG USER_UID=1001
 ARG USER_GID=$USER_UID
 
 RUN apt-get update \
-    && apt-get install --no-install-recommends -yq curl \
+    && apt-get install --no-install-recommends -yq curl gnupg2 git iproute2 language-pack-en lsb-release python \
+        python-pip python-setuptools python-wheel \
     && curl -o /tmp/puppetlabs.deb https://apt.puppet.com/puppet6-release-bionic.deb \
     && dpkg -i /tmp/puppetlabs.deb \
     && apt-get update \
-    && apt-get install --no-install-recommends -yq curl git gnupg2 iproute2 language-pack-en lsb-release puppet-agent python python-pip \
-        python-setuptools python-wheel \
+    && apt-get install --no-install-recommends -yq puppet-agent \
     && pip install yamllint \
     && rm -f /etc/localtime \
     && ln -s /usr/share/zoneinfo/America/New_York /etc/localtime \
