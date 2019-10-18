@@ -23,9 +23,9 @@ RUN apt-get update \
     && ln -s /usr/share/zoneinfo/America/New_York /etc/localtime \
     && mkdir -p /root/.config/puppet \
     && cp /tmp/analytics.yml /root/.config/puppet/analytics.yml \
-    && cp /tmp/bash_aliases.sh > /root/.bash_aliases \
+    && cp /tmp/bash_aliases.sh /root/.bash_aliases \
     && gpg2 --list-keys || /bin/true \
-    && echo 'disable-ipv6' > /root/.gnupg/dirmngr.conf \
+    && cp /tmp/dirmngr.conf /root/.gnupg/dirmngr.conf \
     && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB \
     && curl -sSL -o /tmp/rvm-installer https://get.rvm.io \
     && bash /tmp/rvm-installer stable \
