@@ -6,8 +6,7 @@
             "*.eyaml": "yaml",
             "Puppetfile": "ruby"
         },
-        "terminal.integrated.shell.linux": "/bin/bash",
-        "terminal.integrated.shellArgs.linux": ["-l"]
+        "terminal.integrated.shell.linux": "/bin/bash"
     },
     "extensions": [
         "jpogran.puppet-vscode",
