@@ -5,6 +5,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
 
+COPY . /tmp
+
 # This Dockerfile adds a non-root 'vscode' user with sudo access. However, for Linux,
 # this user's GID/UID must match your local user UID/GID to avoid permission issues
 # with bind mounts. Update USER_UID / USER_GID if yours is not 1000. See
@@ -20,8 +22,8 @@ RUN apt-get update \
     && rm -f /etc/localtime \
     && ln -s /usr/share/zoneinfo/America/New_York /etc/localtime \
     && mkdir -p /root/.config/puppet \
-    && echo -e "---\ndisabled:true" > /root/.config/puppet/analytics.yml \
-    && echo 'alias python=python3' > /root/.bash_aliases \
+    && cp /tmp/analytics.yml /root/.config/puppet/analytics.yml \
+    && cp /tmp/bash_aliases.sh > /root/.bash_aliases \
     && gpg2 --list-keys || /bin/true \
     && echo 'disable-ipv6' > /root/.gnupg/dirmngr.conf \
     && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB \
@@ -34,6 +36,10 @@ RUN apt-get update \
     && bash -lc "bundle config --global silence_root_warning 1" \
     && groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && mkdir -p /home/vscode/.config/puppet \
+    && cp /tmp/analytics.yml /home/vscode/.config/puppet/analytics.yml \
+    && cp /tmp/bash_aliases.sh /home/vscode/.bash_aliases \
+    && chown "$USERNAME" /home/vscode/.config/puppet/analytics.yml /home/vscode/.bash_aliases \
     && apt-get -yq autoremove \
     && apt-get -yq clean \
     && rm -rf /usr/local/rvm/log/* \
