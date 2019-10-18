@@ -39,7 +39,7 @@ RUN apt-get update \
     && mkdir -p /home/vscode/.config/puppet \
     && cp /tmp/analytics.yml /home/vscode/.config/puppet/analytics.yml \
     && cp /tmp/bash_aliases.sh /home/vscode/.bash_aliases \
-    && chown "$USERNAME" /home/vscode/.config/puppet/analytics.yml /home/vscode/.bash_aliases \
+    && chown -R ${USERNAME}:${USERNAME} /home/vscode/.[a-z]* \
     && apt-get -yq autoremove \
     && apt-get -yq clean \
     && rm -rf /usr/local/rvm/log/* \
