@@ -1,9 +1,8 @@
-FROM ubuntu:18.04
+FROM ruby:2.5.7-slim
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8 \
-    LC_ALL=en_US.UTF-8
+    LANGUAGE=en_US.UTF-8
 
 COPY . /tmp
 
@@ -16,24 +15,15 @@ ARG USER_UID=1001
 ARG USER_GID=$USER_UID
 
 RUN apt-get update \
-    && apt-get install --no-install-recommends -yq curl gnupg2 git iproute2 language-pack-en lsb-release python3 \
+    && apt-get install --no-install-recommends -yq curl gcc git iproute2 lsb-release make python3 \
         python-pip python-setuptools python-wheel \
+    && gem install bundle pdk puppet rake --no-doc \
+    && bundle config --global silence_root_warning 1 \
     && pip install yamllint \
     && rm -f /etc/localtime \
     && ln -s /usr/share/zoneinfo/America/New_York /etc/localtime \
     && mkdir -p /root/.config/puppet \
     && cp /tmp/analytics.yml /root/.config/puppet/analytics.yml \
-    && cp /tmp/bash_aliases.sh /root/.bash_aliases \
-    && gpg2 --list-keys || /bin/true \
-    && cp /tmp/dirmngr.conf /root/.gnupg/dirmngr.conf \
-    && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB \
-    && curl -sSL -o /tmp/rvm-installer https://get.rvm.io \
-    && bash /tmp/rvm-installer stable \
-    && bash -lc "rvm requirements" \
-    && bash -lc "rvm install 2.5.7" \
-    && bash -lc "rvm use 2.5.7 --default" \
-    && bash -lc "gem install bundle pdk puppet rake --no-doc" \
-    && bash -lc "bundle config --global silence_root_warning 1" \
     && groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && mkdir -p /home/vscode/.config/puppet \
