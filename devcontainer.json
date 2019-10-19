@@ -9,16 +9,17 @@
         "terminal.integrated.shell.linux": "/bin/bash"
     },
     "extensions": [
-        "jpogran.puppet-vscode",
-        "craigmaslowski.erb",
-        "davidanson.vscode-markdownlint",
-        "wwm.better-align",
-        "riccardonovaglia.missinglineendoffile",
-        "deerawan.vscode-whitespacer",
-        "sandcastle.whitespace",
         "bierner.markdown-preview-github-styles",
         "compulim.indent4to2",
-        "editorconfig.editorconfig"
+        "craigmaslowski.erb",
+        "davidanson.vscode-markdownlint",
+        "deerawan.vscode-whitespacer",
+        "editorconfig.editorconfig",
+        "jpogran.puppet-vscode",
+        "rebornix.Ruby",
+        "riccardonovaglia.missinglineendoffile",
+        "sandcastle.whitespace",
+        "wwm.better-align"
     ],
     "runArgs": [
         "--rm"

@@ -2,7 +2,8 @@ FROM ruby:2.5.7-slim
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8
+    LANGUAGE=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8
 
 COPY . /tmp
 
@@ -15,7 +16,11 @@ ARG USER_UID=1001
 ARG USER_GID=$USER_UID
 
 RUN apt-get update \
-    && apt-get install --no-install-recommends -yq curl gcc git iproute2 lsb-release make python3 \
+    && apt-get install --no-install-recommends -yq curl locales-all \
+    && curl -o /tmp/puppetlabs.deb https://apt.puppet.com/puppet6-release-buster.deb \
+    && dpkg -i /tmp/puppetlabs.deb \
+    && apt-get update \
+    && apt-get install --no-install-recommends -yq curl gcc git iproute2 lsb-release make pdk python3 \
         python-pip python-setuptools python-wheel \
     && gem install bundle pdk puppet rake --no-doc \
     && bundle config --global silence_root_warning 1 \
@@ -28,7 +33,6 @@ RUN apt-get update \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && mkdir -p /home/vscode/.config/puppet \
     && cp /tmp/analytics.yml /home/vscode/.config/puppet/analytics.yml \
-    && cp /tmp/bash_aliases.sh /home/vscode/.bash_aliases \
     && chown -R ${USERNAME}:${USERNAME} /home/vscode/.[a-z]* \
     && apt-get -yq autoremove \
     && apt-get -yq clean \
