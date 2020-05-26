@@ -4,4 +4,5 @@ rules:
   line-length:
     max: 120
     level: warning
-  indentation: {spaces: 2}
+  indentation:
+    spaces: 2
