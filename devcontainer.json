@@ -1,6 +1,6 @@
 {
     "name": "Puppet 6",
-    "image": "broadinstitute/devnull-vscode-puppet",
+    "image": "broadinstitute/devnull-vscode-puppet:latest",
     "settings": {
         "files.associations": {
             "*.eyaml": "yaml",
@@ -8,6 +8,9 @@
         },
         "terminal.integrated.shell.linux": "/bin/bash"
     },
+    "mounts": [
+        "source=${localWorkspaceFolder}/.vscode-server-insiders,target=/root/.vscode-server-insiders,type=bind,consistency=cached"
+    ],
     "extensions": [
         "bierner.markdown-preview-github-styles",
         "compulim.indent4to2",
@@ -22,6 +25,8 @@
         "wwm.better-align"
     ],
     "runArgs": [
+        "--name",
+        "vscode_puppet",
         "--rm"
     ]
 }
