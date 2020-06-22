@@ -1,4 +1,4 @@
-FROM ruby:2.4.10-slim
+FROM ruby:2.5.8-slim-stretch
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8 \
@@ -16,7 +16,8 @@ ARG USER_UID=1001
 ARG USER_GID=$USER_UID
 
 RUN apt-get update \
-    && apt-get install --no-install-recommends -yq curl locales-all \
+    && apt-get upgrade -y \
+    && apt-get install --no-install-recommends -yq curl g++ locales-all \
     && curl -o /tmp/puppetlabs.deb https://apt.puppet.com/puppet6-release-buster.deb \
     && dpkg -i /tmp/puppetlabs.deb \
     && apt-get update \
