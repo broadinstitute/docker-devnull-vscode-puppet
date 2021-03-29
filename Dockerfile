@@ -18,7 +18,7 @@ ARG USER_GID=$USER_UID
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install --no-install-recommends -yq curl g++ locales-all \
-    && curl -o /tmp/puppetlabs.deb https://apt.puppet.com/puppet6-release-buster.deb \
+    && curl -o /tmp/puppetlabs.deb https://apt.puppet.com/puppet6-release-stretch.deb \
     && dpkg -i /tmp/puppetlabs.deb \
     && apt-get update \
     && apt-get install --no-install-recommends -yq curl gcc git iproute2 lsb-release make pdk python3 \
